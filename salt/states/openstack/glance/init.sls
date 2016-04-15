@@ -19,6 +19,4 @@ glance-init:
     - name: sleep 5 && bash /etc/glance/glance_init.sh && touch /etc/glance-init.lock
     - require:
       - file: glance-init
-      - service: openstack-glance-api
-      - service: openstack-glance-registry
     - unless: test -f /etc/glance-init.lock

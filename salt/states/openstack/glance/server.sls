@@ -1,3 +1,6 @@
+include:
+  - openstack.glance.init
+
 glance_install:
   pkg.installed:
     - names: 
@@ -9,8 +12,8 @@ glance_configs:
   file.recurse:
     - name: /etc/glance
     - source: salt://openstack/glance/files/config
-    - root: root
-    - group: root
+    - root: glance
+    - group: glance
     - template: jinja
     - defaults:
       MYSQL_SERVER: {{ pillar['keystone']['MYSQL_SERVER'] }}
@@ -33,7 +36,7 @@ glance_configs:
 
 glance-db-sync:
   cmd.run:
-    - name: su -s /bin/sh -c "glance-manage db_sync" glance && touch /etc/glance/glance-datasync.lock 
+    - name: su -s /bin/sh -c "glance-manage db_sync" glance && touch /etc/glance/glance-datasync.lock && chown -R glance:glance /var/log/glance/*
     - require:
       - pkg: glance_install
     - unless: test -f /etc/glance/glance-datasync.lock
@@ -58,5 +61,3 @@ glance-registry-run:
     - require:
       - pkg: glance_install
       - cmd: glance-db-sync
-include:
-   - openstack.glance.init
