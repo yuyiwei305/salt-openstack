@@ -48,4 +48,22 @@ openstack-keystone-run:
       - file: keystone-config
 
 
+include:
+  - openstack.keystone.init
+
+
+
+creat-admin-openrc:
+  file.managed:
+    - name: /root/admin-openrc.sh
+    - source: salt://openstack/keystone/files/admin-openrc.sh
+    - mode: 755
+    - user: root
+    - group: root
+    - template: jinja
+    - defaults:
+      KEYSTONE_ADMIN_TENANT: {{ pillar['keystone']['KEYSTONE_ADMIN_TENANT'] }}
+      KEYSTONE_ADMIN_USER: {{ pillar['keystone']['KEYSTONE_ADMIN_USER'] }}
+      KEYSTONE_ADMIN_PASSWD: {{ pillar['keystone']['KEYSTONE_ADMIN_PASSWD'] }}
+      KEYSTONE_AUTH_URL: {{ pillar['keystone']['KEYSTONE_AUTH_URL'] }}
 

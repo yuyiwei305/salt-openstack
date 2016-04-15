@@ -1,22 +1,27 @@
-export OS_SERVICE_TOKEN="{{KEYSTONE_ADMIN_TOKEN}}" 
-export OS_SERVICE_ENDPOINT="{{KEYSTONE_AUTH_URL}}"
+export OS_TOKEN={{KEYSTONE_ADMIN_TOKEN}}
+export OS_URL=http://{{KEYSTONE_IP}}:35357/v2.0
 
-keystone user-create --name={{KEYSTONE_ADMIN_USER}} --pass="{{KEYSTONE_ADMIN_PASSWD}}"
-keystone tenant-create --name={{KEYSTONE_ADMIN_TENANT}} --description="Admin Tenant"
-keystone role-create --name={{KEYSTONE_ROLE_NAME}}
-keystone user-role-add --user={{KEYSTONE_ADMIN_USER}} --tenant={{KEYSTONE_ADMIN_TENANT}} --role={{KEYSTONE_ROLE_NAME}}
-keystone user-role-add --user={{KEYSTONE_ADMIN_USER}} --role=_member_ --tenant={{KEYSTONE_ADMIN_TENANT}}
-keystone tenant-create --name=service
+openstack service create \
+ --name keystone --description "OpenStack Identity" identity
 
-function get_id () {
-    echo `"$@" | grep ' id ' | awk '{print $4}'`
-}
-#Keystone Service and Endpoint                                     
-KEYSTONE_SERVICE_ID=$(get_id \
-keystone service-create --name=keystone \
-                        --type=identity \
-                        --description="Keystone Identity Service")
-keystone endpoint-create --service-id="$KEYSTONE_SERVICE_ID" \
-    --publicurl="http://{{KEYSTONE_IP}}:5000/v2.0" \
-    --adminurl="http://{{KEYSTONE_IP}}:35357/v2.0" \
-    --internalurl="http://{{KEYSTONE_IP}}:5000/v2.0"
+openstack endpoint create \
+ --publicurl http://{{KEYSTONE_IP}}:5000/v2.0 \
+ --internalurl http://{{KEYSTONE_IP}}:5000/v2.0 \
+ --adminurl http://{{KEYSTONE_IP}}:35357/v2.0 \
+ --region RegionOne \
+ identity
+
+openstack project create --description "Admin Project" admin
+openstack user create --password {{KEYSTONE_ADMIN_PASSWD}} {{KEYSTONE_ADMIN_USER}}
+openstack role create {{KEYSTONE_ROLE_NAME}}
+openstack role add --project admin --user {{KEYSTONE_ADMIN_USER}} {{KEYSTONE_ROLE_NAME}}
+openstack project create --description "Service Project" service
+
+# demo
+openstack project create --description "Demo Project" demo	
+openstack user create --password demo demo
+openstack role create user
+openstack role add --project demo --user demo user
+
+sleep 3
+unset OS_TOKEN OS_URL

@@ -15,7 +15,7 @@ keystone-init:
       KEYSTONE_AUTH_URL: {{ pillar['keystone']['KEYSTONE_AUTH_URL'] }}
       KEYSTONE_IP: {{ pillar['keystone']['KEYSTONE_IP'] }}
   cmd.run:
-    - name: sleep 10 && bash /etc/keystone/keystone_init.sh && touch /etc/keystone/keystone-init.lock
+    - name: sleep 5 && bash /etc/keystone/keystone_init.sh && touch /etc/keystone/keystone-init.lock
     - require:
       - file: keystone-init
       - service: openstack-keystone-run
