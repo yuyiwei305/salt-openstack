@@ -14,8 +14,8 @@ ntp-service:
 epel_repo:
   pkg.installed:
     - sources:
-      - epel-release-7-5.noarch: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-    - unless: rpm -qa | grep epel-release-7-5.noarch  
+      - epel-release-7-6.noarch: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm
+    - unless: rpm -qa | grep epel-release-7-6.noarch  
 
 yum_repo_release:
   cmd.run:
