@@ -1,6 +1,6 @@
 keystone-install:
   cmd.run:
-    - name: yum -y install openstack-keystone memcached  python-memcached  python-keystoneclient
+    - name: yum -y install openstack-keystone memcached  python-memcached  python-openstackclient
 
 keystone-config:
   file.managed:
