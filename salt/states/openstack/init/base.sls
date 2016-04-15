@@ -18,9 +18,8 @@ epel_repo:
     - unless: rpm -qa | grep epel-release-7-5.noarch  
 
 yum_repo_release:
-  pkg.installed:
-    - sources:
-      - rdo-release-kilo-1.noarch: https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm
+  cmd.run:
+    - name: yum -y install  https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm
     - require:
       - pkg: epel_repo
     - unless: rpm -qa | grep rdo-release-kilo-1
