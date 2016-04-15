@@ -1,10 +1,6 @@
 keystone-install:
-  pkg.installed:
-    - names:
-      - openstack-keystone
-      - memcached
-      - python-memcached
-      - python-keystoneclient
+  cmd.run:
+    - name: yum -y install openstack-keystone memcached  python-memcached  python-keystoneclient
 
 keystone-config:
   file.managed:
@@ -12,6 +8,7 @@ keystone-config:
     - source: salt://openstack/keystone/files/keystone.conf
     - user: root
     - user: root
+    - mode: 755
     - template: jinja
     - defaults:
       KEYSTONE_ADMIN_TOKEN: {{ pillar['keystone']['KEYSTONE_ADMIN_TOKEN'] }}
@@ -20,21 +17,24 @@ keystone-config:
       KEYSTONE_DB_USER: {{ pillar['keystone']['KEYSTONE_DB_USER'] }}
       KEYSTONE_DB_NAME: {{ pillar['keystone']['KEYSTONE_DB_NAME'] }}
     - require:
-      - pkg: keystone-install  
+      - cmd: keystone-install  
 
 mem-run:
   service.running:
     - name: memcached
     - enable: True
     - require:
-      - pkg: keystone-install
+      - cmd: keystone-install
+    - watch:
+      - file: keystone-config      
+
 
 keystone-db-sync:
   cmd.run:
-    - name: keystone-manage db_sync && touch /etc/keystone/keystone_db.lock
+    - name: su -s /bin/sh -c "keystone-manage db_sync" keystone  && touch /etc/keystone/keystone_db.lock
     - unless: test -f /etc/keystone/keystone_db.lock
     - require:
-      - pkg: keystone-install
+      - cmd: keystone-install
       - file: keystone-config
 
 
@@ -43,8 +43,9 @@ openstack-keystone-run:
     - name: openstack-keystone
     - enable: True
     - require:
-      - pkg: keystone-install
+      - cmd: keystone-install
     - watch:
       - file: keystone-config
-      - cmd: keystone-db-sync
+
+
 
