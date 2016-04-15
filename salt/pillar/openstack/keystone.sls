@@ -1,5 +1,5 @@
 keystone:
-  MYSQL_SERVER: 10.0.1.11
+  MYSQL_SERVER: localhost
   KEYSTONE_IP: 10.0.1.11
   KEYSTONE_ADMIN_TOKEN: ADMIN
   KEYSTONE_ADMIN_TENANT: admin
@@ -11,5 +11,5 @@ keystone:
   KEYSTONE_DB_USER: keystone
   KEYSTONE_DB_PASS: keystone
   DB_ALLOW: keystone.*
-  HOST_ALLOW: 127.0.0.1
+  HOST_ALLOW: localhost
 
