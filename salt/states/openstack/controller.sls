@@ -6,4 +6,3 @@ include:
   - openstack.keystone.server
   - openstack.glance.server
   - openstack.nova.controller
-  - openstack.nova.compute
