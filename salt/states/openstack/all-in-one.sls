@@ -8,3 +8,4 @@ include:
   - openstack.nova.controller
   - openstack.nova.compute
   - openstack.neutron.server
+  - openstack.neutron.network

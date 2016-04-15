@@ -29,11 +29,43 @@ network-openswitch-cmd:
     - mode: 755
     - template: jinja
     - defaults:
-      NETWORKINTERFACE: {{ grains['ip_interfaces'][0] }}
+      VM_INTERFACE: {{ pillar['neutron']['VM_INTERFACE'] }}
   cmd.run:
     - name: bash /etc/neutron/openswitch-init.sh && touch /etc/neutron/openswitch-cmd.lock
     - require: 
       - file: network-openswitch-cmd
       - service: network-openswitch.service
     - unless: test -f /etc/neutron/openswitch-cmd.lock
+
+network-neutron-openvswitch-agent.run:
+  service.running:
+    - name: neutron-openvswitch-agent.service
+    - enable: True
+    - require:
+      - pkg: network-server-install
+      - cmd: network-openswitch-cmd
+
+network-neutron-l3-agent.run:
+  service.running:
+    - name: neutron-l3-agent.service
+    - enable: True
+    - require:
+      - pkg: network-server-install
+      - cmd: network-openswitch-cmd
+
+network-neutron-dhcp-agent.run:
+  service.running:
+    - name: neutron-dhcp-agent.service
+    - enable: True
+    - require:
+      - pkg: network-server-install
+      - cmd: network-openswitch-cmd
+
+network-neutron-metadata-agent.run:
+  service.running:
+    - name: neutron-metadata-agent.service
+    - enable: True
+    - require:
+      - pkg: network-server-install
+      - cmd: network-openswitch-cmd
 
