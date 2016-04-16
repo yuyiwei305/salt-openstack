@@ -4,3 +4,4 @@ include:
   - openstack.mysql.server
   - openstack.mysql.init
   - openstack.keystone.server
+  - openstack.glance.server
