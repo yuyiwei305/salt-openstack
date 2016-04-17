@@ -1,7 +1,7 @@
 source admin-openrc.sh
 	
-openstack user create --password {{AUTH_NOVA_ADMIN_USER}} {{AUTH_NOVA_ADMIN_PASS}}
-openstack role add --project service {{AUTH_NOVA_ADMIN_TENANT}} --user {{AUTH_NOVA_ADMIN_USER}} admin
+openstack user create --password {{AUTH_NOVA_ADMIN_PASS}} {{AUTH_NOVA_ADMIN_USER}}
+openstack role add --project  {{AUTH_NOVA_ADMIN_TENANT}} --user {{AUTH_NOVA_ADMIN_USER}} admin
 openstack service create --name nova \
  --description "OpenStack Compute" compute
 openstack endpoint create \
