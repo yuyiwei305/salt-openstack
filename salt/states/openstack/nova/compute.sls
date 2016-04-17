@@ -1,21 +1,10 @@
-include:
-  - openstack.nova.init
-
-
-nova-control-install:
+nova-compute-install:
   pkg.installed:
-    - names:
-      - openstack-nova-api
-      - openstack-nova-cert
-      - openstack-nova-conductor
-      - openstack-nova-console
-      - openstack-nova-novncproxy
-      - openstack-nova-scheduler
-      - python-novaclient
+    - names: 
+      - openstack-nova-compute
+      - sysfsutils
 
-
-
-nova-config:
+nova-compute-config:
   file.recurse:
     - name: /etc/nova
     - source: salt://openstack/nova/files/config
@@ -48,72 +37,20 @@ nova-config:
       AUTH_URI: {{ pillar['nova']['AUTH_URI'] }}
 
 
-
-nova-db-sync:
-  cmd.run:
-    - name: su -s /bin/sh -c "nova-manage db sync" nova && touch /etc/nova/nova-db.lock
-    - require:
-      - pkg: nova-control-install
-    - unless: test -f /etc/nova/nova-db.lock
-
-openstack-nova-api-server:
+libvirtd-server:
   service.running:
-    - name: openstack-nova-api
+    - name: libvirtd
     - enable: True
     - watch:
       - file: /etc/nova
     - require:
-      - pkg: nova-control-install
-      - cmd: nova-db-sync
+      - pkg: nova-compute-install
 
-openstack-nova-cert-server:
+openstack-nova-compute-server:
   service.running:
-    - name: openstack-nova-cert
+    - name: openstack-nova-compute
     - enable: True
     - watch:
       - file: /etc/nova
     - require:
-      - pkg: nova-control-install
-      - cmd: nova-db-sync
-
-openstack-nova-consoleauth-server:
-  service.running:
-    - name: openstack-nova-consoleauth
-    - enable: True
-    - watch:
-      - file: /etc/nova
-    - require:
-      - pkg: nova-control-install
-      - cmd: nova-db-sync
-
-
-openstack-nova-scheduler-server:
-  service.running:
-    - name: openstack-nova-scheduler
-    - enable: True
-    - watch:
-      - file: /etc/nova
-    - require:
-      - pkg: nova-control-install
-      - cmd: nova-db-sync
-
-openstack-nova-conductor-server:
-  service.running:
-    - name: openstack-nova-conductor
-    - enable: True
-    - watch:
-      - file: /etc/nova
-    - require:
-      - pkg: nova-control-install
-      - cmd: nova-db-sync
-
-openstack-nova-novncproxy-server:
-  service.running:
-    - name: openstack-nova-novncproxy
-    - enable: True
-    - watch:
-      - file: /etc/nova
-    - require:
-      - pkg: nova-control-install
-      - cmd: nova-db-sync
-
+      - pkg: nova-compute-install
