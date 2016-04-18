@@ -4,3 +4,4 @@ base:
     - openstack.glance
     - openstack.rabbit
     - openstack.nova
+    - openstack.neutron

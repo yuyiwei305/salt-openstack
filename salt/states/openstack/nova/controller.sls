@@ -46,7 +46,9 @@ nova-config:
       NOVNCPROXY_BASE_URL: {{ pillar['nova']['NOVNCPROXY_BASE_URL'] }}
       VNCSERVER_PROXYCLIENT: {{ grains['ipv4'][1]  }}
       AUTH_URI: {{ pillar['nova']['AUTH_URI'] }}
-
+      AUTH_NEUTRON_ADMIN_TENANT: {{ pillar['neutron']['AUTH_NEUTRON_ADMIN_TENANT'] }}
+      AUTH_NEUTRON_ADMIN_USER: {{ pillar['neutron']['AUTH_NEUTRON_ADMIN_USER'] }}
+      AUTH_NEUTRON_ADMIN_PASS: {{ pillar['neutron']['AUTH_NEUTRON_ADMIN_PASS'] }}
 
 
 nova-db-sync:
