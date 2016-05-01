@@ -35,6 +35,7 @@ keystone-db-sync:
     - unless: test -f /etc/keystone/keystone_db.lock
     - require:
       - cmd: keystone-install
+      - cmd: keystone-init
       - file: keystone-config
 
 

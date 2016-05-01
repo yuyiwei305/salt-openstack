@@ -16,7 +16,7 @@ glance-init:
       AUTH_GLANCE_ADMIN_USER: {{ pillar['glance']['AUTH_GLANCE_ADMIN_USER'] }}
       AUTH_GLANCE_ADMIN_PASS: {{ pillar['glance']['AUTH_GLANCE_ADMIN_PASS'] }}
   cmd.run:
-    - name: sleep 5 && bash /etc/glance/glance_init.sh && touch /etc/glance-init.lock
+    - name: sleep 5 && bash /etc/glance/glance_init.sh && touch /etc/glance/glance-init.lock
     - require:
       - file: glance-init
-    - unless: test -f /etc/glance-init.lock
+    - unless: test -f /etc/glance/glance-init.lock

@@ -24,6 +24,7 @@ neutron-db-sync:
 
     - require:
       - pkg: neutron-server-install
+      - cmd: neutron-init
     - unless: test -f /etc/neutron/neutron-db-sync.lock
 
 neutron-server-run:
