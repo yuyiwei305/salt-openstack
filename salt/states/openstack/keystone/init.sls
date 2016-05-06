@@ -19,4 +19,4 @@ keystone-init:
     - require:
       - file: keystone-init
       - service: openstack-keystone-run
-    - unless: test -f /etc/keystone-init.lock
+    - unless: test -f /etc/keystone/keystone-init.lock
