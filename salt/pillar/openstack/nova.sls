@@ -1,11 +1,11 @@
 nova:
-  MYSQL_SERVER: localhost
+  MYSQL_SERVER: controller
   NOVA_IP: 10.0.1.11
   NOVA_DB_NAME: nova
   NOVA_DB_USER: nova
   NOVA_DB_PASS: nova
   DB_ALLOW: nova.*
-  HOST_ALLOW: localhost
+  HOST_ALLOW: 10.0.0.0/255.0.0.0
   RABBITMQ_HOST: 10.0.1.11
   RABBITMQ_PORT: 5672
   RABBITMQ_USER: openstack

@@ -1,11 +1,11 @@
 glance:
-  MYSQL_SERVER: localhost
+  MYSQL_SERVER: controller
   GLANCE_IP: 10.0.1.11
   GLANCE_DB_USER: glance
   GLANCE_DB_NAME: glance
   GLANCE_DB_PASS: glance
   DB_ALLOW: glance.*
-  HOST_ALLOW: localhost
+  HOST_ALLOW: 10.0.0.0/255.0.0.0
   RABBITMQ_HOST: 10.0.1.11
   RABBITMQ_PORT: 5672
   RABBITMQ_USER: openstack

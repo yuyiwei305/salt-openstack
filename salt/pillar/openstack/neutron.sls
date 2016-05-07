@@ -1,5 +1,5 @@
 neutron:
-  MYSQL_SERVER: localhost
+  MYSQL_SERVER: controller
   NEUTRON_IP: 10.0.1.11
   NEUTRON_DB_NAME: neutron
   NEUTRON_DB_USER: neutron
@@ -19,4 +19,4 @@ neutron:
   AUTH_NEUTRON_ADMIN_USER: neutron
   AUTH_NEUTRON_ADMIN_PASS: neutron
   DB_ALLOW: neutron.*
-  HOST_ALLOW: localhost
+  HOST_ALLOW: 10.0.0.0/255.0.0.0
