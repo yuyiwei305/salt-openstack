@@ -18,5 +18,7 @@ keystone-init:
     - name: sleep 5 && bash /etc/keystone/keystone_init.sh && touch /etc/keystone/keystone-init.lock
     - require:
       - file: keystone-init
+      - cmd: keystone-db-sync
       - service: openstack-keystone-run
+      - service: openstack-httpd-run
     - unless: test -f /etc/keystone/keystone-init.lock

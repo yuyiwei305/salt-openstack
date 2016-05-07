@@ -19,4 +19,5 @@ nova-init:
     - name: bash /usr/local/bin/nova_init.sh && touch /etc/nova/nova-datainit.lock
     - require:
       - file: nova-init
+      - cmd: nova-db-sync
     - unless: test -f /etc/nova/nova-datainit.lock

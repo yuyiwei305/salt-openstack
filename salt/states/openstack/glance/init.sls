@@ -19,4 +19,5 @@ glance-init:
     - name: sleep 5 && bash /etc/glance/glance_init.sh && touch /etc/glance/glance-init.lock
     - require:
       - file: glance-init
+      - cmd: glance-db-sync
     - unless: test -f /etc/glance/glance-init.lock

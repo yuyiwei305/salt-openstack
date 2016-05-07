@@ -56,7 +56,6 @@ nova-db-sync:
     - name: su -s /bin/sh -c "nova-manage db sync" nova && touch /etc/nova/nova-db.lock
     - require:
       - pkg: nova-control-install
-      - cmd: nova-init
     - unless: test -f /etc/nova/nova-db.lock
 
 openstack-nova-api-server:
