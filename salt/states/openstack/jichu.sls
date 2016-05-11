@@ -1,2 +1,0 @@
-include:
-  - openstack.init.base
