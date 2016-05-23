@@ -19,10 +19,10 @@ epel_repo:
 
 yum_repo_release:
   cmd.run:
-    - name: yum -y install  https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-1.noarch.rpm
+    - name: yum -y install  https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-2.noarch.rpm
     - require:
       - pkg: epel_repo
-    - unless: rpm -qa | grep rdo-release-kilo-1
+    - unless: rpm -qa | grep rdo-release-kilo-2
 
 pkg-base:
   pkg.installed:
