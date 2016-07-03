@@ -13,10 +13,8 @@ ntp-service:
 
 epel_repo:
   pkg.installed:
-    - sources:
-      - epel-release-7-6.noarch: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm
-    - unless: rpm -qa | grep epel-release-7-6.noarch  
-
+    - name: epel-release
+    - unless: rpm -qa | grep epel-release 
 yum_repo_release:
   cmd.run:
     - name: yum -y install  https://repos.fedorapeople.org/repos/openstack/openstack-kilo/rdo-release-kilo-2.noarch.rpm

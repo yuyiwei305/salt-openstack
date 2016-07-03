@@ -2,4 +2,6 @@ base:
   'controller':
     - openstack.controller
   'nova*':
-    - openstack.jichu
+    - openstack.compute
+  'network':
+    - openstack.network
