@@ -11,7 +11,7 @@ network-server-install:
       - openstack-neutron-openvswitch
 
 include:
-  - openstack.neutron.config
+  - openstack.neutron.network-conf
 
 network-openswitch.service:
   service.running:
@@ -49,6 +49,8 @@ network-neutron-l3-agent.run:
   service.running:
     - name: neutron-l3-agent.service
     - enable: True
+    - watch:
+      - file: network-conf-l3-conf
     - require:
       - pkg: network-server-install
       - cmd: network-openswitch-cmd
@@ -57,6 +59,8 @@ network-neutron-dhcp-agent.run:
   service.running:
     - name: neutron-dhcp-agent.service
     - enable: True
+    - watch:
+      - file: network-conf-dhcp-conf
     - require:
       - pkg: network-server-install
       - cmd: network-openswitch-cmd
@@ -65,7 +69,8 @@ network-neutron-metadata-agent.run:
   service.running:
     - name: neutron-metadata-agent.service
     - enable: True
+    - watch:
+      - file: network-conf-metadata-conf
     - require:
       - pkg: network-server-install
       - cmd: network-openswitch-cmd
-

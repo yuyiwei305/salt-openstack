@@ -5,3 +5,4 @@ base:
     - openstack.rabbit
     - openstack.nova
     - openstack.neutron
+    - openstack.dashboard

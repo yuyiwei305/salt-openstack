@@ -19,5 +19,4 @@ neutron-init:
     - name: bash /etc/neutron/neutron_init.sh && touch /etc/neutron/neutron-datainit.lock
     - require:
       - file: /etc/neutron/neutron_init.sh
-      - cmd: neutron-db-sync
     - unless: test -f /etc/neutron/neutron-datainit.lock

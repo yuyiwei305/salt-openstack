@@ -1,7 +1,7 @@
-server-conf-neutron-conf:
+compute-conf-neutron-conf:
   file.managed:
     - name: /etc/neutron/neutron.conf
-    - source: salt://openstack/neutron/files/server-conf/neutron.conf
+    - source: salt://openstack/neutron/files/compute-conf/neutron.conf
     - user: neutron
     - group: neutron
     - template: jinja
@@ -29,13 +29,12 @@ server-conf-neutron-conf:
       AUTH_NEUTRON_ADMIN_PASS: {{ pillar['neutron']['AUTH_NEUTRON_ADMIN_PASS'] }}
       VM_INTERFACE: {{ pillar['neutron']['VM_INTERFACE'] }}
       LOCALIP: {{ grains['ipv4'][1]  }}
-    - require:
-      - pkg: neutron-server-install
 
-server-conf-ml2-conf:
+
+compute-conf-ml2-conf:
   file.managed:
     - name: /etc/neutron/plugins/ml2/ml2_conf.ini
-    - source: salt://openstack/neutron/files/server-conf/plugins/ml2/ml2_conf.ini
+    - source: salt://openstack/neutron/files/compute-conf/plugins/ml2/ml2_conf.ini
     - user: neutron
     - group: neutron
     - template: jinja
@@ -63,5 +62,7 @@ server-conf-ml2-conf:
       AUTH_NEUTRON_ADMIN_PASS: {{ pillar['neutron']['AUTH_NEUTRON_ADMIN_PASS'] }}
       VM_INTERFACE: {{ pillar['neutron']['VM_INTERFACE'] }}
       LOCALIP: {{ grains['ipv4'][1]  }}
-    - require:
-      - pkg: neutron-server-install
+
+
+
+
