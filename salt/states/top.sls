@@ -1,7 +1,7 @@
 base:
   'controller':
     - openstack.controller
-  'nova*':
+  'compute*':
     - openstack.compute
   'network':
     - openstack.network
