@@ -5,9 +5,9 @@ nova-compute-install:
       - sysfsutils
 
 nova-compute-config:
-  file.recurse:
-    - name: /etc/nova
-    - source: salt://openstack/nova/files/config
+  file.managed:
+    - name: /etc/nova/nova.conf
+    - source: salt://openstack/nova/files/config/nova-compute.conf
     - user: nova
     - group: nova
     - template: jinja
