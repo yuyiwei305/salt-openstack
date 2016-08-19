@@ -45,7 +45,7 @@ libvirtd-server:
     - name: libvirtd
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-compute-install
 
@@ -54,6 +54,6 @@ openstack-nova-compute-server:
     - name: openstack-nova-compute
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-compute-install
