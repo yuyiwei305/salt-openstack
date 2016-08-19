@@ -1,6 +1,6 @@
 neutron:
   MYSQL_SERVER: controller
-  NEUTRON_IP: 172.16.0.1
+  NEUTRON_IP: 172.16.0.2
   NEUTRON_DB_NAME: neutron
   NEUTRON_DB_USER: neutron
   NEUTRON_DB_PASS: neutron
