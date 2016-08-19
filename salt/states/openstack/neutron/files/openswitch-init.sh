@@ -3,8 +3,8 @@
 systemctl restart openstack-nova-api.service
 systemctl restart openvswitch.service
 
-ovs-vsctl add-br br-ex
-ovs-vsctl add-port br-ex {{VM_INTERFACE}}
+ovs-vsctl add-br br-{{VM_INTERFACE}}
+ovs-vsctl add-port br-{{VM_INTERFACE}}  {{VM_INTERFACE}}
 ethtool -K {{VM_INTERFACE}} gro off
 
 ln -s /etc/neutron/plugins/ml2/ml2_conf.ini /etc/neutron/plugin.ini
