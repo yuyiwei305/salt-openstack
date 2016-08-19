@@ -6,5 +6,5 @@ include:
   - openstack.keystone.server
   - openstack.glance.server
   - openstack.nova.controller
-  - openstack.neutron.server
+#  - openstack.neutron.server
 #  - openstack.dashboard.server

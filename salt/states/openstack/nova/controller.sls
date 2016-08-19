@@ -18,7 +18,7 @@ nova-control-install:
 nova-config:
   file.managed:
     - name: /etc/nova/nova.conf
-    - source: salt://openstack/nova/files/nova.conf
+    - source: salt://openstack/nova/files/config/nova.conf
     - user: nova
     - group: nova
     - template: jinja
@@ -63,7 +63,7 @@ openstack-nova-api-server:
     - name: openstack-nova-api
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-control-install
       - cmd: nova-db-sync
@@ -73,7 +73,7 @@ openstack-nova-cert-server:
     - name: openstack-nova-cert
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-control-install
       - cmd: nova-db-sync
@@ -83,7 +83,7 @@ openstack-nova-consoleauth-server:
     - name: openstack-nova-consoleauth
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-control-install
       - cmd: nova-db-sync
@@ -94,7 +94,7 @@ openstack-nova-scheduler-server:
     - name: openstack-nova-scheduler
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-control-install
       - cmd: nova-db-sync
@@ -104,7 +104,7 @@ openstack-nova-conductor-server:
     - name: openstack-nova-conductor
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-control-install
       - cmd: nova-db-sync
@@ -114,7 +114,7 @@ openstack-nova-novncproxy-server:
     - name: openstack-nova-novncproxy
     - enable: True
     - watch:
-      - file: /etc/nova
+      - file: /etc/nova/nova.conf
     - require:
       - pkg: nova-control-install
       - cmd: nova-db-sync
