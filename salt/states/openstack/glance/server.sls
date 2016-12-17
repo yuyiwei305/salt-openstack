@@ -12,7 +12,7 @@ glance_configs:
   file.recurse:
     - name: /etc/glance
     - source: salt://openstack/glance/files/config
-    - root: glance
+    - user: glance
     - group: glance
     - template: jinja
     - defaults:
